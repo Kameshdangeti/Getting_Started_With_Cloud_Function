@@ -37,7 +37,6 @@ const functions = require('firebase-functions');
 ##### ->In Https functions,you will has request and response as argumens.It allows to inspect request.
 ##### ->Imagine we are creating e-commerce site whenever a request is given to function it should on the lamp and like every other example as below :
             export const helloworld = v2.https.onRequest((request, response) =>{
-                debugger;
                 const name = request.params[0].replace('/',' ');
                 const items = {lamp: 'This is a lamp', chair: 'This is a chair', hello: 'hello world'};
                 const message = items[name];
@@ -51,4 +50,19 @@ const functions = require('firebase-functions');
 ###### ---------->npm run serve.
 ##### ->Next it will print an url for testng in terminal.And it will also spin up local UI that prints ou logs from function that can be seen in firebase emulator suite.
 ##### ->You can see the url similar as http://localhost:5001/My-Fun-Project/us-central1/helloworld.Copy and paste it on new browser tab.It shows undefined that means thee is a bug.
- 
+
+## e.Setting up Breakpoints debugging in functions and deploy it.
+##### ->To debug functions breakpoints we should add "debugger" in it as:
+          export const helloworld = v2.https.onRequest((request, response) =>{
+                debugger;
+                const name = request.params[0].replace('/',' ');
+                const items = {lamp: 'This is a lamp', chair: 'This is a chair', hello: 'hello world'};
+                const message = items[name];
+                response.send(`<h1>${message}</h1>`);
+            });
+##### ->Now go to package.json file add aline as:
+###### -----------> "dev": "firebase emulators:start --inspect-functions --only functions",
+##### ->Now run the dev command in secondly opened powershell terminal tab.Now emulators get started,and we will se a section of debugger that can be overcomed by opening a special url called chrome Inspect.
+##### ->In that webpage we can see option name inspect,Click it we can a tab of Dev Tools.Now go to the tab where you copied the link add text as "lamp" it shows the output as "This is a lamp" in webpage.
+##### ->Now Open the another terminal in powershel and change the directory as "function" and deploy it using "npm run deploy".
+##### ->Functions are deployed without any error.
