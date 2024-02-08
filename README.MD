@@ -15,3 +15,20 @@
 ##### ->If you already created a project tap on the use an existing or the other one to create new project.
 ##### Next it prompts what language do you need TypeScript,JavaScript prefer anyone of that,My opinion will be JavaScrit.And after it ask about eslint prefer to tap "No".
 ##### ->After that it will ask yes or no to install the dependencies with npm,tap "yes" again it will install everything. 
+
+## b.Project Structure and function Anatomy
+##### ->Open project folder in vs code.Now we can see the files like index.js,package.json and so on it was created by Firbase CLI.
+##### ->Now open the "index.js" file in that we will import the function in 2 ways by using Esm and Cjs as
+// ESM
+            import * as functions from 'firebase-functions/';
+            import * as functions from 'firebase-functions/';
+
+
+// CJS
+const functions = require('firebase-functions');
+##### ->Commonjs or cjs has been the mainmodule system for many years.But Ecosystem is embracing and moving to esm because it unifies the module system between nodeand browser.
+##### ->And next is function version as:
+            import * as v2 from 'firebase-functions/v2';
+            import * as v1 from 'firebase-functions/v1';
+##### ->In both of them we use version 2,now we create function name and event type and one of the commaon events are Https Events as :
+##### ->export const helloworld = v2.https.onRequest((request, response) =>){} 
