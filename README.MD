@@ -64,5 +64,29 @@ const functions = require('firebase-functions');
 ###### -----------> "dev": "firebase emulators:start --inspect-functions --only functions",
 ##### ->Now run the dev command in secondly opened powershell terminal tab.Now emulators get started,and we will se a section of debugger that can be overcomed by opening a special url called chrome Inspect.
 ##### ->In that webpage we can see option name inspect,Click it we can a tab of Dev Tools.Now go to the tab where you copied the link add text as "lamp" it shows the output as "This is a lamp" in webpage.
-##### ->Now Open the another terminal in powershel and change the directory as "function" and deploy it using "npm run deploy".
+##### ->Now Open the another third terminal in powershel and change the directory as "function" and deploy it using "npm run deploy".
 ##### ->Functions are deployed without any error.
+
+## f.Firestore Triggers
+##### ->Suppose this inventory buil site manages by skus,stocks.Everytime sku is added it will be in usd.
+##### ->So,now we will write a function that wil convert usd into euros in sku.ow add these lines in "index.js' file where firestore triggers are possible.
+                    const usd_to_eur=0.95;
+
+                    export const newsku =v1.firestore.document('/inventory/{sku}')
+                    .onCreate(snapshot =>{
+                        const data =snapshot.data();
+                        const eur=data.usd*usd_to_eur;
+                        return snapshot.ref.set({eur,...data} , {merge : true});
+                    });
+
+## g.Running Firebase emulators and Function Shell
+##### ->Open a new tab and initialize firebase emulator as "npm firebase init emulators".Then we will get a emulator setup and it has many types now select "Firebase Emulators" and Function Emulators".And tap enter and now will get to ask some other permissions then just press enter or type 'Y' for it.
+##### ->And after that run the command.
+###### ----------->npx firebase emulators:start --only firestore.
+##### ->Then the emulator will run.
+##### ->Now we shoulrun the function shell too,it is done by opening new tab and change directory to "function" and type the command and run the shell.
+###### ------------>npm run shell
+##### ->now it shows as firebase > newsku ({}).
+##### ->Type the name and usd in the space given and after that run it.
+###### ---------->firebase > newsku ({name :"mark",usd:10}) 
+##### ->It will be succesfully invoked and Open the Firebase emulator suite webpage.And tap on the firestore there we can see the inventory and sku and the fields which are invoked and added.
