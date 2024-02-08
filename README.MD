@@ -32,3 +32,23 @@ const functions = require('firebase-functions');
             import * as v1 from 'firebase-functions/v1';
 ##### ->In both of them we use version 2,now we create function name and event type and one of the commaon events are Https Events as :
 ##### ->export const helloworld = v2.https.onRequest((request, response) =>){} 
+
+## c.https events:handling request and responses
+##### ->In Https functions,you will has request and response as argumens.It allows to inspect request.
+##### ->Imagine we are creating e-commerce site whenever a request is given to function it should on the lamp and like every other example as below :
+            export const helloworld = v2.https.onRequest((request, response) =>{
+                debugger;
+                const name = request.params[0].replace('/',' ');
+                const items = {lamp: 'This is a lamp', chair: 'This is a chair', hello: 'hello world'};
+                const message = items[name];
+                response.send(`<h1>${message}</h1>`);
+            });
+##### ->Now Whenever we given "lamp" as request it should give respones as "This is lamp".To see that we should run the emulator suite.
+
+## d.Running Emulator Suite
+##### ->To run the firebase emulator suite we need to run a command from firebase CLI.
+##### ->Now open another terminal tab in powershell and open "function" directory and run server as follows:
+###### ---------->npm run serve.
+##### ->Next it will print an url for testng in terminal.And it will also spin up local UI that prints ou logs from function that can be seen in firebase emulator suite.
+##### ->You can see the url similar as http://localhost:5001/My-Fun-Project/us-central1/helloworld.Copy and paste it on new browser tab.It shows undefined that means thee is a bug.
+ 
